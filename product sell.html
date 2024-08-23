@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-commerce Store</title>
+    <link rel="stylesheet" href="http://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="stylefaisal.css">
+
+    <style>
+      
+header {
+    margin-top: 10%;
+    background: #333;
+    color: white;
+    width: 100%;
+    padding: 10px 0;
+    text-align: center;
+}
+
+button {
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: relative;
+    animation: modalOpen 0.5s;
+}
+
+@keyframes modalOpen {
+    from {opacity: 0; transform: translateY(-50px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input, textarea {
+    width: 95%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 15px;
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.product {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    width: 300px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+}
+
+.product img {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+}
+
+.product-details {
+    text-align: left;
+    padding: 10px;
+}
+#productList{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+
+}
+    </style>
+</head>
+<body>
+    
+  <div id="headers">
+    <a href="#" class="logo"><img style="width: 70px; height: 60px;" src="images/logo.png" alt="" class='bx bx-stopwatch'></a>
+    <ul class="navlist">
+      <li><a href="Home.html" class="active">Store</a></li>
+      <li><a href="catalog.html">Catalog</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="about us.html">About</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+     
+    </ul>
+    <div class="h-main">
+   
+
+ 
+      <a href="cart.html">  <i style="color: black; font-size: x-large;" class='bx bx-shopping-bag' class="darkmode" id="cart-icon"></i></a>
+    <div class="bx bx-moon" id="darkmode"></div>
+    <a href="storedetails.html"><div class="bx bxs-message-alt-add" id="darkmode"></div></a>
+
+    <a style="margin-left: 30px;" href="registration.html" class="h-btn">Sign in</a>
+    </div>
+    
+  </div>
+    <header>
+        <h1>Sell Your Products!</h1>
+        <button id="sellButton">Sell</button>
+        <button id="clearProductsButton">Clear All Products</button>
+    </header>
+    <main>
+        <div id="productList"></div>
+    </main>
+    <div id="sellModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Sell Your Product</h2>
+            <form id="productForm">
+                <label for="productImage">Product Image:</label>
+                <input type="file" id="productImage" name="productImage" accept="image/*" required>
+                
+                <label for="productName">Product Name:</label>
+                <input type="text" id="productName" name="productName" required>
+                
+                <label for="price">Price:</label>
+                <input type="number" id="price" name="price" required>
+                
+                <label for="description">Description:</label>
+                <textarea id="description" name="description" required></textarea>
+                
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" required>
+                
+                <label for="verification">Verification (Phone or Email):</label>
+                <input type="text" id="verification" name="verification" required>
+                
+                <button type="submit">Sell Now</button>
+            </form>
+        </div>
+    </div>
+  <script>
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+    const sellButton = document.getElementById('sellButton');
+    const sellModal = document.getElementById('sellModal');
+    const closeButton = document.querySelector('.close');
+    const productForm = document.getElementById('productForm');
+    const productList = document.getElementById('productList');
+    const clearProductsButton = document.getElementById('clearProductsButton');
+
+    // Show modal
+    sellButton.addEventListener('click', () => {
+        sellModal.style.display = 'block';
+    });
+
+    // Close modal
+    closeButton.addEventListener('click', () => {
+        sellModal.style.display = 'none';
+    });
+
+    // Close modal when clicking outside of the modal content
+    window.addEventListener('click', (event) => {
+        if (event.target === sellModal) {
+            sellModal.style.display = 'none';
+        }
+    });
+
+    // Handle form submission
+    productForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const productName = event.target.productName.value;
+        const price = event.target.price.value;
+        const description = event.target.description.value;
+        const location = event.target.location.value;
+        const verification = event.target.verification.value;
+        const productImage = event.target.productImage.files[0];
+
+        // Validate inputs
+        if (productName && price && description && location && verification && productImage) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const product = {
+                    productName,
+                    price,
+                    description,
+                    location,
+                    verification,
+                    productImage: e.target.result,
+                };
+                addProduct(product);
+                productForm.reset();
+                sellModal.style.display = 'none'; // Hide the modal after submission
+                console.log('Form submitted and modal closed'); // Debug log
+            };
+            reader.readAsDataURL(productImage);
+        } else {
+            alert('Please fill in all fields');
+        }
+    });
+
+    // Add product to list and local storage
+    function addProduct(product) {
+        const productElement = document.createElement('div');
+        productElement.className = 'product';
+        productElement.innerHTML = `
+            <img src="${product.productImage}" alt="${product.productName}">
+            <div class="product-details">
+                <h3>${product.productName}</h3>
+                <p><strong>Price:</strong> ${product.price}</p>
+                <p><strong>Description:</strong> ${product.description}</p>
+                <p><strong>Location:</strong> ${product.location}</p>
+                <p><strong>Contact:</strong> ${product.verification}</p>
+            </div>
+        `;
+        productList.appendChild(productElement);
+        saveProduct(product);
+    }
+
+    // Save product to local storage
+    function saveProduct(product) {
+        let products = localStorage.getItem('products');
+        if (!products) {
+            products = [];
+        } else {
+            products = JSON.parse(products);
+        }
+        products.push(product);
+        try {
+            localStorage.setItem('products', JSON.stringify(products));
+        } catch (e) {
+            console.error('Storage limit exceeded. Cannot save the product.', e);
+        }
+    }
+
+    // Load products from local storage
+    function loadProducts() {
+        let products = localStorage.getItem('products');
+        if (products) {
+            products = JSON.parse(products);
+            products.forEach(product => addProduct(product));
+        }
+    }
+
+    // Clear all products
+    clearProductsButton.addEventListener('click', () => {
+        localStorage.removeItem('products');
+        productList.innerHTML = ''; // Clear the displayed product list
+    });
+
+    loadProducts();
+});
+    </script>
+
+
+
+
+
+<!--footer-->
+<hr>
+<footer class="section-p1">
+<div class="col">
+  <img class="logo" src="images/logo.png" style="width: 100px; height: 60px;" >
+  <h4>Contact</h4>
+  <p><strong>Address </strong>562 wellington road,street 53,sun francisco</p>
+  <p><strong>Phone </strong>+68542467890</p>
+  <p><strong>Hours </strong>10:00-18:00 , Mon-Sat</p>
+  <div class="follow">
+      <h4>Follow us</h4>
+      <div class="icon">
+        <a href="https://www.facebook.com/"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+       <a href="https://www.whatsapp.com/"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+       <a href="https://www.instagram.com/"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+      <a href="https://blog.hootsuite.com/instagram-username-ideas/"> <i class="fa fa-user" aria-hidden="true"></i></a>
+      </div>
+  </div>
+
+</div>
+
+<div class="col">
+  <h4>About</h4>
+  <a href="Home.html">Home</a>
+  <a href="catalog.html">Catalog</a>
+  <a href="services.html">Services</a>
+  <a href="aboutus.html">About Us</a>
+  <a href="contact.html">Contact Us</a>
+  
+   </div>
+   <div class="col">
+      <h4>My Account</h4>
+      <a href="login.html">My Account</a>
+      <a href="signup.html">Sign Up</a>
+      <a href="cart.html">View Cart</a>
+      <a href="aboutus.html">My Wishlist</a>
+       <a href="Gallery.html">Track My Order</a>
+      <a href="aboutus.html">Help</a>
+      
+       </div>
+   <div class="col-install">
+<h4>Install App</h4>
+<p>From App Store or Google Play</p>
+<div class="rowsss">
+  <img src="images/app.webp" style="width:120px; height: 50px;">
+ 
+</div>
+
+<p>Secured Payment Getways</p>
+<img src="images/pay.webp" style="width: 120px; height: 50px;">
+   </div>
+   
+   
+   <div class="copyright">
+      <p>2024 © Created by OCS.pk Team!</p>
+   </div>
+</footer>
+  <script src="faisal.js"></script>
+</body>
+</html>

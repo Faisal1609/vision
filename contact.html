@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Form</title>
+    <link rel="stylesheet" href="contact.css" />
+    <link rel="stylesheet" href="http://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            font-size: 16px;
+        }
+        h2 {
+            text-align: center;
+            text-decoration: underline;
+        }
+        form {
+            width: 350px;
+            padding: 5px 10px 10px;
+            margin: 50px auto 0;
+            border-radius: 5px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        label i {
+            color: #fda90d;
+            font-size: 80%;
+        }
+        input, select {
+            border-radius: 50px;
+            border: 1px solid #fa8f04;
+            background: transparent;
+            color: azure;
+            padding: 10px;
+            display: block;
+            width: 300px;
+            box-sizing: border-box;
+        }
+        .row {
+            padding-bottom: 10px;
+        }
+        .form-inline {
+            padding: 8px 10px 4px;
+            border-radius: 2px;
+        }
+        .form-inline label, .form-inline input {
+            display: inline-block;
+            width: auto;
+            padding-right: 15px;
+        }
+        .error {
+            color: red;
+            font-size: 90%;
+        }
+        input[type="submit"] {
+            font-size: 110%;
+            font-weight: 100;
+            background: #201f1f;
+            border: 2px solid #fa8f04;
+            color: #ffffff;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background: #f19e03;
+        }
+    </style>
+</head>
+<body>
+    <div id="headers">
+        <a href="#" class="logo"><img style="width: 70px; height: 60px;" src="images/logo.png" alt="" class='bx bx-stopwatch'></a>
+        <ul class="navlist">
+            <li><a href="Home.html" class="active">Store</a></li>
+            <li><a href="catalog.html">Catalog</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="about us.html">About</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+        <div class="h-main">
+            <a href="cart.html"><i style="color: black; font-size: xx-large;" class='bx bx-shopping-bag' class="darkmode" id="cart-icon"></i></a>
+            <div class="bx bx-menu" id="menu-icon"></div>
+            <div class="bx bx-moon" id="darkmode"></div>
+            <a href="storedetails.html"><div class="bx bxs-message-alt-add" id="darkmode"></div></a>
+            <a style="margin-left: 30px;" href="registration.html" class="h-btn">Sign in</a>
+        </div>
+    </div>
+    <div class="container">
+        <span class="big-circle"></span>
+        <img src="img/shape.png" class="square" alt="" />
+        <div class="form">
+            <div class="contact-info">
+                <h3 class="title">Let's get in touch</h3>
+                <p class="text">
+                    If you have any questions, feedback, or need assistance, please don't hesitate to reach out to us. Our team is here to help and will get back to you as soon as possible. This will help you understand how each part works and how to enhance the overall user experience.
+                </p>
+                <div class="info">
+                    <div class="information">
+                        <i style="color: #fa8f04;" class="fa fa-address-book" aria-hidden="true"></i>
+                        <p style="padding-left: 10px;">92 Cherry Drive Uniondale, NY 11553</p>
+                    </div>
+                    <div class="information">
+                        <i style="color: #fa8f04;" class="fa fa-user-circle-o" aria-hidden="true"></i>
+                        <p style="padding-left: 10px;">OCS.pk@gmail.com</p>
+                    </div>
+                    <div class="information">
+                        <i style="color: #fa8f04;" class="fa fa-phone" aria-hidden="true"></i>
+                        <p style="padding-left: 10px;">123-456-789</p>
+                    </div>
+                </div>
+                <div class="social-media">
+                    <p>Connect with us :</p>
+                    <div class="social-icons">
+                        <a href="https://www.facebook.com/"><i class="fa fa-facebook"></i></a>
+                        <a href="https://x.com/?lang=en"><i class="fa fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/"><i class="fa fa-instagram"></i></a>
+                        <a href="https://pk.linkedin.com/"><i class="fa fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <span class="circle one"></span>
+                <span class="circle two"></span>
+                <form name="contactForm" onsubmit="return validateForm()" action="contact.html" method="post">
+                    <h2 style="text-decoration: none;">Contact Form</h2>
+                    <div class="row">
+                        <label>Full Name</label>
+                        <input type="text" name="name" required>
+                        <div class="error" id="nameErr"></div>
+                    </div>
+                    <div class="row">
+                        <label>Email Address</label>
+                        <input type="email" name="email" required>
+                        <div class="error" id="emailErr"></div>
+                    </div>
+                    <div class="row">
+                        <label>Mobile Number</label>
+                        <input type="text" name="mobile" maxlength="10" required>
+                        <div class="error" id="mobileErr"></div>
+                    </div>
+                    <div class="row">
+                        <label>Country</label>
+                        <select style="background: black;" name="country" required>
+                            <option value="Selected">Select</option>
+                            <option value="Pakistan">Pakistan</option>
+                            <option value="India">India</option>
+                            <option value="United States">United States</option>
+                            <option value="United Kingdom">United Kingdom</option>
+                        </select>
+                        <div class="error" id="countryErr"></div>
+                    </div>
+                    <div class="row">
+                        <label>Gender</label>
+                        <div class="form-inline">
+                            <label><input type="radio" name="gender" value="male" required> Male</label>
+                            <label><input type="radio" name="gender" value="female"> Female</label>
+                        </div>
+                        <div class="error" id="genderErr"></div>
+                    </div>
+                    <div class="row">
+                        <label>Interest <i>(Optional)</i></label>
+                        <div class="form-inline">
+                            <label><input type="checkbox" name="Interest[]" value="Selling"> Selling</label>
+                            <label><input type="checkbox" name="Interest[]" value="Buying"> Buying</label>
+                            <label><input type="checkbox" name="Interest[]" value="Both"> Both</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <input type="submit" value="Submit">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br><br>
+    <script src="contact.js"></script>
+
+    <!--footer-->
+    <hr>
+    <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="images/logo.png" style="width: 100px; height: 60px;">
+            <h4>Contact</h4>
+            <p><strong>Address </strong>562 Wellington Road, Street 53, San Francisco</p>
+            <p><strong>Phone </strong>+68542467890</p>
+            <p><strong>Hours </strong>10:00-18:00 , Mon-Sat</p>
+            <div class="follow">
+                <h4>Follow us</h4>
+                <div class="icon">
+                    <a href="https://www.facebook.com/"><i class="fa fa-facebook-official" aria-hidden="true"></i></a>
+                    <a href="https://www.whatsapp.com/"><i class="fa fa-whatsapp" aria-hidden="true"></i></a>
+                    <a href="https://www.instagram.com/"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                    <a href="https://blog.hootsuite.com/instagram-username-ideas/"><i class="fa fa-user" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <h4>About</h4>
+            <a href="Home.html">Home</a>
+            <a href="catalog.html">Catalog</a>
+            <a href="services.html">Services</a>
+            <a href="aboutus.html">About Us</a>
+            <a href="contact.html">Contact Us</a>
+            
+        </div>
+        <div class="col">
+            <h4>My Account</h4>
+            <a href="login.html">My Account</a>
+            <a href="signup.html">Sign Up</a>
+            <a href="cart.html">View Cart</a>
+            <a href="aboutus.html">My Wishlist</a>
+            <a href="Gallery.html">Track My Order</a>
+            <a href="aboutus.html">Help</a>
+        </div>
+        <div class="col-install">
+            <h4>Install App</h4>
+            <p>From App Store or Google Play</p>
+            <div class="rowsss">
+                <img src="images/app.webp" style="width:120px; height: 50px;">
+            </div>
+            <p>Secured Payment Gateways</p>
+            <img src="images/pay.webp" style="width: 120px; height: 50px;">
+        </div>
+        <div class="copyright">
+            <p>2024 © Created by OCS.pk Team!</p>
+        </div>
+    </footer>
+    <script src="faisal.js"></script>
+    <script>
+        function printError(elemId, hintMsg) {
+            document.getElementById(elemId).innerHTML = hintMsg;
+        }
+
+        function validateForm() {
+            let name = document.contactForm.name.value;
+            let email = document.contactForm.email.value;
+            let mobile = document.contactForm.mobile.value;
+            let country = document.contactForm.country.value;
+            let gender = document.querySelector('input[name="gender"]:checked');
+            let interests = [];
+            let checkboxes = document.getElementsByName("Interest[]");
+
+            for (let i = 0; i < checkboxes.length; i++) {
+                if (checkboxes[i].checked) {
+                    interests.push(checkboxes[i].value);
+                }
+            }
+
+            let nameErr = emailErr = mobileErr = countryErr = genderErr = true;
+
+            if (name == "") {
+                printError("nameErr", "Please enter your name");
+            } else {
+                let regex = /^[a-zA-Z\s]+$/;
+                if (regex.test(name) === false) {
+                    printError("nameErr", "Please enter a valid name");
+                } else {
+                    printError("nameErr", "");
+                    nameErr = false;
+                }
+            }
+
+            if (email == "") {
+                printError("emailErr", "Please enter your email address");
+            } else {
+                let regex = /^\S+@\S+\.\S+$/;
+                if (regex.test(email) === false) {
+                    printError("emailErr", "Please enter a valid email address");
+                } else {
+                    printError("emailErr", "");
+                    emailErr = false;
+                }
+            }
+
+            if (mobile == "") {
+                printError("mobileErr", "Please enter your mobile number");
+            } else {
+                let regex = /^[1-9]\d{9}$/;
+                if (regex.test(mobile) === false) {
+                    printError("mobileErr", "Please enter a valid 10 digit mobile number");
+                } else {
+                    printError("mobileErr", "");
+                    mobileErr = false;
+                }
+            }
+
+            if (country == "") {
+                printError("countryErr", "Please select your country");
+            } else {
+                printError("countryErr", "");
+                countryErr = false;
+            }
+
+            if (!gender) {
+                printError("genderErr", "Please select your gender");
+            } else {
+                printError("genderErr", "");
+                genderErr = false;
+            }
+
+            if ((nameErr || emailErr || mobileErr || countryErr || genderErr) == true) {
+                return false;
+            } else {
+                let dataPreview = "You've entered the following details: \n" +
+                    "Full Name: " + name + "\n" +
+                    "Email Address: " + email + "\n" +
+                    "Mobile Number: " + mobile + "\n" +
+                    "Country: " + country + "\n" +
+                    "Gender: " + gender.value + "\n";
+                if (interests.length) {
+                    dataPreview += "Interests: " + interests.join(", ");
+                }
+                alert(dataPreview);
+                return true; // Return true to allow form submission
+            }
+        }
+    </script>
+</body>
+</html>

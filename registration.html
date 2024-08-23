@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="catalog.css">
+</head>
+<body>
+    <div class="bod">
+        <div class="main">
+            <input type="checkbox" id="chk" aria-hidden="true">
+            <div class="signup">
+                <form id="signupForm" onsubmit="return myform()">
+                    <label for="chk" aria-hidden="true">Sign Up</label>
+                    <input id="name" class="inp" type="text" placeholder="User name" required>
+                    <input id="email" class="inp" type="email" placeholder="Email" required>
+                    <input id="pass" class="inp" type="password" placeholder="Password" required>
+                    <input id="c_pass" class="inp" type="password" placeholder="Confirm password" required>
+                    <button type="submit" id="btns">Sign up</button>
+                </form>
+            </div>
+
+            <div class="login">
+                <form id="loginForm" onsubmit="return Submit()">
+                    <label for="chk" aria-hidden="true">Login</label>
+                    <input id="loginEmail" class="inp" type="email" placeholder="Email or User name" required>
+                    <input id="loginPass" class="inp" type="password" placeholder="Password" required>
+                    <button type="submit" id="btns">Login</button>
+                    <p>Don't have an account? <a href="">Create account</a>.</p>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function myform() {
+            var reg_name = /^[A-Z][a-zA-Z]/; // Name starts with a capital letter and has at least 2 characters
+            var inp_name = document.getElementById("name").value;
+
+            var reg_email = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,3}$/; // Valid email regex
+            var inp_email = document.getElementById("email").value;
+
+            var reg_pass = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/; // At least 6 characters, 1 letter, 1 number
+            var password = document.getElementById("pass").value;
+
+            var c_password = document.getElementById("c_pass").value;
+
+            // Check username validity
+            if (!reg_name.test(inp_name)) {
+                alert("Invalid username. It must start with a capital letter..");
+                return false; // Prevent form submission
+            }
+            // Check email validity
+            if (!reg_email.test(inp_email)) {
+                alert("Invalid email format.");
+                return false; // Prevent form submission
+            }
+            // Check password validity
+            if (!reg_pass.test(password)) {
+                alert("Password must be at least 6 characters long and include at least one letter and one number.");
+                return false; // Prevent form submission
+            }
+            // Check if passwords match
+            if (password !== c_password) {
+                alert("Passwords do not match.");
+                return false; // Prevent form submission
+            }
+
+            // If all validations pass, show success alert and redirect
+            alert("Account created successfully!");
+            window.location.href = "Home.html"; // Redirect to Home.html
+            return false; // Prevent form submission for demo purposes
+        }
+
+        function Submit() {
+            var reg_email = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Valid email regex
+            var inp_email = document.getElementById("loginEmail").value;
+
+            // Check email validity
+            if (!reg_email.test(inp_email)) {
+                alert("Invalid email format.");
+                return false; // Prevent form submission
+            }
+
+            // If valid, show success alert and redirect
+            alert("Login successful!");
+            window.location.href = "Home.html"; // Redirect to Home.html
+            return false; // Prevent form submission for demo purposes
+        }
+    </script>
+</body>
+</html>

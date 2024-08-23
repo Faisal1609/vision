@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #363636;
+            font-family: sans-serif;
+        }
+
+        .formContainer {
+            width: 80%;
+            height: 85vh;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #9fa5a8;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            text-align: center;
+            margin: 2rem 0;
+            font-weight: 600;
+        }
+
+        #myForm {
+            width: 90%;
+            margin: 1rem auto;
+        }
+
+        .formDetails {
+            margin: 1rem 0;
+        }
+
+        label {
+            display: block;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: .4rem;
+        }
+
+        input {
+            width: 100%;
+            padding: .6rem 0;
+            outline: none;
+            font-size: 1rem;
+            border-radius: 10px;
+            border: none;
+        }
+
+        input:focus {
+            outline: 1px solid #064247;
+        }
+        
+        button {
+            margin: 1.1rem 0;
+            background-color: #053135;
+            color: #fff;
+            font-weight: 600;
+            border: none;
+            padding: .8rem 0;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            border-radius: 10px;
+        }
+
+        button:hover {
+            background-color: #064247; /* Change color on hover */
+        }
+
+        .errorMessage {
+            margin-top: .3rem;
+            font-size: .9rem;
+            font-weight: 600;
+            font-family: monospace;
+            color: #f2070e; /* Red color for error messages */
+        }
+
+        .formDetails.success input {
+            border-color: #09c372;
+            outline: none;
+        }
+
+        .formDetails.error input {
+            border-color: #f2070e;
+        }
+
+        @media screen and (min-width: 1024px) {
+            .formContainer {
+                width: 30%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="formContainer">
+        <header>
+            <h1>Verification Form</h1>
+        </header>
+
+        <form id="myForm">
+            <div class="formDetails">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" aria-describedby="email-error">
+                <div class="errorMessage" id="email-error"></div>
+            </div>
+
+            <div class="formDetails">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" aria-describedby="password-error">
+                <div class="errorMessage" id="password-error"></div>
+            </div>
+
+            <div class="formDetails">
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" aria-describedby="confirm-password-error">
+                <div class="errorMessage" id="confirm-password-error"></div>
+            </div>
+
+            <button type="submit">Submit</button>
+            <p style="padding-left: 60px;">If you are not Signin<a style="padding-left: 10px;" href="registration.html">Signin</a>.</p>
+        </form>
+    </div>
+    <script>
+        const myForm = document.getElementById('myForm');
+        myForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+
+            // Clear previous error messages and classes
+            const errorMessages = document.querySelectorAll('.errorMessage');
+            errorMessages.forEach(msg => msg.textContent = '');
+
+            const formDetails = document.querySelectorAll('.formDetails');
+            formDetails.forEach(detail => {
+                detail.classList.remove('success', 'error');
+            });
+
+            const email = myForm.elements.email.value.trim();
+            const emailError = document.getElementById('email-error');
+            const emailInput = document.getElementById('email');
+
+            if (email === '') {
+                emailError.textContent = 'Email is required.';
+                emailInput.parentNode.classList.add('error');
+            } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                emailError.textContent = 'Please enter a valid email address.';
+                emailInput.parentNode.classList.add('error');
+            } else {
+                emailInput.parentNode.classList.add('success');
+            }
+
+            const password = myForm.elements.password.value.trim();
+            const passwordError = document.getElementById('password-error');
+            const passwordInput = document.getElementById('password');
+
+            if (password === '') {
+                passwordError.textContent = 'Password is required.';
+                passwordInput.parentNode.classList.add('error');
+            } else if (password.length < 8) {
+                passwordError.textContent = 'Password is expected to be at least 8 characters.';
+                passwordInput.parentNode.classList.add('error');
+            } else {
+                passwordInput.parentNode.classList.add('success');
+            }
+
+            // Confirm password validation
+            const confirmPassword = myForm.elements.confirmPassword.value.trim();
+            const confirmPasswordError = document.getElementById('confirm-password-error');
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+
+            if (confirmPassword === '') {
+                confirmPasswordError.textContent = 'Please confirm your password.';
+                confirmPasswordInput.parentNode.classList.add('error');
+            } else if (confirmPassword !== password) {
+                confirmPasswordError.textContent = 'Passwords do not match.';
+                confirmPasswordInput.parentNode.classList.add('error');
+            } else {
+                confirmPasswordInput.parentNode.classList.add('success');
+            }
+
+            // Check if there are no error messages
+            if (!emailError.textContent && !passwordError.textContent && !confirmPasswordError.textContent) {
+                alert("Account Successfully Created!"); // Optional alert for successful submission
+                window.location.href = "product sell.html"; // Redirect to home page
+            }
+        });
+    </script>
+</body>
+</html>
